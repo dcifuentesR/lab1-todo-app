@@ -1,16 +1,21 @@
 import React from 'react';
 import {Todo} from "./Todo";
+import { AddTodo } from './AddTodo';
+
 
 export class TodoList extends React.Component {
     constructor(props){
         super(props);
+        this.state={todoList:this.props.todoList};
+        this.handleAddTask = this.handleAddTask.bind(this);
     }
 
-
+    handleAddTask(newItem){
+        this.setState({todoList:this.state.todoList.concat(newItem)});
+    }
 
     render(){
-        const todoList = this.props.todoList;
-        const list = todoList.map((todo,i)=>
+        const list = this.state.todoList.map((todo,i)=>
         <Todo key={i}
             text={todo.text}
             priority={todo.priority}
@@ -20,7 +25,7 @@ export class TodoList extends React.Component {
         );
 
         return(
-            <table>
+                <table>
                 <thead>
                     <th>Name</th>
                     <th>Priority</th>
@@ -28,14 +33,10 @@ export class TodoList extends React.Component {
                 </thead>
                 <tbody>   
                     {list}
-                    <tr>
-                        <button>
-                            Add task
-                        </button>
-                    </tr>
+                    
+                    <AddTodo addTask={this.handleAddTask}/>
                 </tbody>
             </table>
-            
 
         );
     }
