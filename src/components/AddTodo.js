@@ -6,6 +6,7 @@ export class AddTodo extends React.Component{
         this.newItem={};
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
 
         
@@ -15,6 +16,10 @@ export class AddTodo extends React.Component{
 
     handlePriorityChange(e){
         this.newItem.priority = e.target.value;
+    }
+
+    handleDateChange(e){
+        this.newItem.dueDate = e.target.valueAsDate;
     }
 
     render(){
@@ -34,9 +39,11 @@ export class AddTodo extends React.Component{
                 </td>
                 
                 <td>
-                <button onClick={() =>this.props.addTask({...this.newItem,dueDate:new Date()})}>Add</button>
+                    <input type="date" onChange={this.handleDateChange}/>
                 </td>
+                <button onClick={() =>this.props.addTask({...this.newItem})}>Add</button>
             </tr>
+            
 
         );
     }
